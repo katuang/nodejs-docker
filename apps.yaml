@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pintu-nodejs-svc
+spec:
+  type: NodePort
+  selector:
+    apps: nodejs
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30008
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pintu-nodejs
+  labels:
+    apps: nodejs
+spec:
+  containers:
+  - name: pintu-nodejs
+    image: katuang/nodejs-service
+    ports:
+    - containerPort: 8080
